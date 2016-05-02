@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Mail2Push</string>
+    <string name="action_settings">Settings</string>
+    <string name="chat_provider">xyz.belvi.mail2push.DB.chatProvider</string>
+    <string name="chat_provider_description">Just Permission</string>
+    <string name="gcm_SenderId">551201159107</string>
+</resources>

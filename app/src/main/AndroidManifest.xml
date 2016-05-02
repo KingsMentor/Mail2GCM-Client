@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="xyz.belvi.mail2push">
+
+    <permission
+        android:name="xyz.belvi.mail2push.DB.permission"
+        android:description="@string/chat_provider_description"
+        android:protectionLevel="signature" />
+
+    <uses-permission android:name="xyz.belvi.mail2push.DB.permission" />
+
+    <uses-permission android:name="xyz.belvi.mail2push.permission.C2D_MESSAGE" />
+    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <permission
+        android:name="xyz.belvi.mail2push.permission.C2D_MESSAGE"
+        android:protectionLevel="signature" />
+
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity
+            android:name=".MainActivity"
+            android:label="@string/app_name"
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+
+        <receiver
+            android:name="com.google.android.gms.gcm.GcmReceiver"
+            android:exported="true"
+            android:permission="com.google.android.c2dm.permission.SEND">
+            <intent-filter>
+                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+
+                <category android:name="dejavu.appzonegroup.com.dejavuandroid" />
+            </intent-filter>
+        </receiver>
+
+        <service
+            android:name=".GCM_Handler.GCMInstanceIDListenerService"
+            android:exported="false"
+            android:permission="xyz.belvi.mail2push.DB.permission">
+            <intent-filter>
+                <action android:name="com.google.android.gms.iid.InstanceID" />
+            </intent-filter>
+        </service>
+
+        <service
+            android:name=".GCM_Handler.GcmIntentService"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+            </intent-filter>
+        </service>
+
+        <service
+            android:name=".Network.SendChat"
+            android:exported="false"
+            android:permission="xyz.belvi.mail2push.DB.permission" />
+
+        <provider
+            android:name=".DB.ChatProvider"
+            android:authorities="xyz.belvi.mail2push.DB.chatProvider"
+            android:exported="false"
+            android:readPermission="xyz.belvi.mail2push.DB.permission"
+            android:writePermission="xyz.belvi.mail2push.DB.permission" />
+    </application>
+
+</manifest>
